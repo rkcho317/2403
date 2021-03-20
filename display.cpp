@@ -1,13 +1,14 @@
 //This is display.cpp
 
-#include <ctime>
-#include <stdint.h>
-#include <cstring>
-#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
 
-extern "C" double main();
+extern "C" void display(long array[], long index);
 
-string string(){
-	
-	printf("%s\n", "Welcome to High Speed Array Summation by Rosa Cho");
+void display(long array[], long index){
+	for (long i = 0; i<index;++i){
+		printf("%ld", array[i]);
+		printf("%s", " ");
+	}
+	printf("\n\n");
 }
