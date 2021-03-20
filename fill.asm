@@ -3,12 +3,13 @@
 extern printf
 extern scanf
 
-
 global fill
 
 segment .data
-	outputenternum db "Please enter floating point numbers separated by ws.", 10,0
-	outputwhen db "When finished press enter followed by cntl+D.", 10,0
+	outputenternum db "Please enter floating point numbers separated by ws."
+	               db " When finished, press enter followed by cntl+d.", 10,0
+	
+	stringf db "%s",0
 	
 	inputf db "%lf", 0
 
@@ -46,19 +47,19 @@ mov r13, 0
 
 ;Display the instructional message
 mov qword rax, 0
-mov rdi, outputenternum
-mov rsi, outputwhen
-call printf 
+mov rdi, stringf
+mov rsi, outputenternum
+call printf
+pop rax 
 
 ;Begin the loop
 init_loop:
 
 ;Accept input
-push qword 0
 mov rax, 0
-mov rdi, inputf
+mov rdi, inputf 
 push qword 0
-mov  rsi, rsp
+mov rsi, rsp 
 call scanf
 
 ;If ctrl-d is pressed, exit loop 
@@ -70,18 +71,16 @@ pop r12
 ;Enter input into array
 mov [r15 + 8 * r13], r12 
 inc r13
-jmp init_loop
 
 ;If it reaches the end of the array, end loop
 cmp r13, r14
-jge end_loop
+je end_loop
+jmp init_loop
 
 ;End of the loop
 end_loop:
 mov rax, r13
-ret
-pop r8
-pop rax
+
 
 ;Exit
 pop rax

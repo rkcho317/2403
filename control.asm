@@ -14,7 +14,7 @@ segment .data
 	outputnumbers db "The numbers you entered are these: ", 10,0
 	outputsumb db "The sum of these values is ", 10,0
 	outputcontrol db "The control module will now return the sum to the caller module.", 10,0
-	floatnums db "%lf", 0
+	stringf db "%s",0
 	
 segment .bss
 	inparray: resq 100
@@ -47,54 +47,52 @@ pushf
 push qword -1
 
 ;Initialize parameters
-
-push rbp
-mov rbp,rsp
-
-mov r13, rdi
-mov r14, rdi
+mov r13, 0
+mov r14, 0
 
 ;Show initial message
-mov qword rax,0
+mov qword rax, 0
 mov rdi, outputwelcome
 call printf
+pop rax
 
-;Call the array
-mov qword rax, 0
-mov qword rdi, inparray
-mov qword rsi, array_size
+;Call the array from fill.asm
+mov rdi, inparray
+mov rsi, array_size
+mov rax, 0
 call fill
 mov r14, rax
 
 ;Confirm the output of the inputted values
-mov qword rdi, floatnums
-mov qword rsi, outputnumbers
-mov qword rax, 0
+mov rdi, stringf
+mov rsi, outputnumbers
+mov rax, 0
 call printf
 
 ;Display array
-mov qword rdi, inparray
-mov qword rsi, r14
-mov qword rax, 0
+mov rax, 0
+mov rdi, inparray
+mov rsi, r14
 call display
 
 ;Get the sum from sum.asm
-mov qword rdi, inparray
-mov qword rsi, r14
-mov qword rax, 0
+mov rdi, inparray
+mov rsi, r14
+mov rax, 0
 call sum
 mov r13, rax
 
 ;Print the sum
-mov qword rdi, floatnums
-mov qword rsi, outputsumb
-mov qword rax, 0
+mov rdi, stringf
+mov rsi, outputsumb
+mov rax, 0
 call printf
 
 ;Conclusion messages
 mov qword rax, 0
 mov qword rdi, outputcontrol
 call printf
+
 
 ;Restore registers
 pop rax

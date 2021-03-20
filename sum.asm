@@ -42,7 +42,7 @@ mov r12, 0
 init_loop:
 
 cmp r12, r14
-jge exitloop
+jge end_loop
 
 ;Copy into array
 add r13, [r15 + 8 * r12]
@@ -51,8 +51,7 @@ inc r12
 jmp init_loop
 
 ;Ends the loop
-
-exitloop:
+end_loop:
 
 pop rax
 mov qword rax, r13

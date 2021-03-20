@@ -1,14 +1,14 @@
 //This is display.cpp
 
-#include <iostream>
 #include <stdlib.h>
+#include <cstdio>
 
-extern "C" void display(long array[], long index);
+extern "C" void display(double arr[], long index);
 
-void display(long array[], long index){
-	for (long i = 0; i<index;++i){
-		printf("%ld", array[i]);
+void display(double arr[], long index){
+	for (int i = 0; i<index;++i){
+		printf("%lf", arr[i]); 
 		printf("%s", " ");
 	}
-	printf("\n\n");
+	printf("\n");
 }
