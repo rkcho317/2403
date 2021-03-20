@@ -40,7 +40,6 @@ push rbx
 push qword -1
 
 ;Initialize parameters
-
 mov r15, rdi
 mov r14, rsi
 mov r13, 0
@@ -68,18 +67,19 @@ cmp rax,-1
 je end_loop
 pop r12
 
-;Copy into array
+;Enter input into array
 mov [r15 + 8 * r13], r12 
 inc r13
+jmp init_loop
 
-;Array Capacity test
-;cmp r13, r14
-;je end_loop
-;jmp init_loop
-
+;If it reaches the end of the array, end loop
+cmp r13, r14
+jge end_loop
 
 ;End of the loop
 end_loop:
+mov rax, r13
+ret
 pop r8
 pop rax
 
