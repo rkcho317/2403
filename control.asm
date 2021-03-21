@@ -1,4 +1,36 @@
-;This is is control.asm
+;****************************************************************************************************************************
+;Program name: "Quadratic Computation and Validation".  This program demonstrates how to turn
+;an input of a string in to three floats then use those floats to calculate a
+;quadratic equation. Once we get the roots from that equation, we determine
+;how many valid ones are there.
+;Copyright (C) 2021 Rosa Cho.                                                                           *
+;                                                                                                                           *
+;This file is part of the software program "Quadratic Computation and Validation".                                                                   *
+;Quadratic Computation and Validation is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License   *
+;version 3 as published by the Free Software Foundation.                                                                    *
+;Quadratic Computation and Validation is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied          *
+;warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.     *
+;A copy of the GNU General Public License v3 is available here:  <https:;www.gnu.org/licenses/>.                            *
+;****************************************************************************************************************************
+
+;Author information
+;  Author name: Rosa Cho
+;  Author email: rkcho317@csu.fullerton.edu
+;
+;Program information
+;  Program name: Quadratic Computation and Validation
+;  Programming languages: Three modules in C++, one in C, and one module in X86
+;  Date program began: 2021-Feb-18
+;  Date of last update: 2021-Feb-28
+;  Files in this program: second_degree.c, quad_library.cpp, isfloat.cpp, isdigit.cpp, quadratic.asm
+;  Status: In-progress
+;
+;This file
+;   File name: quadratic.asm
+;   Language: X86 with Intel syntax.
+;   Max page width:
+;   Assemble: nasm -f elf64 -l quadratic.lis -o quadratic.o quadratic.asm
+
 extern printf
 extern scanf
 extern display
@@ -12,7 +44,7 @@ global control
 segment .data
 	outputwelcome db "Welcome to HSAS.  The accuracy and reliability of this program is guaranteed by Rosa Cho", 10,0
 	outputnumbers db "The numbers you entered are these: ", 10,0
-	outputsumb db "The sum of these values is ", 10,0
+	outputsumb db "The sum of these values is %5.8lf", 10,0
 	outputcontrol db "The control module will now return the sum to the caller module.", 10,0
 	stringf db "%s",0
 	
@@ -70,23 +102,25 @@ mov rax, 0
 call printf
 
 ;Display array
-mov rax, 0
 mov rdi, inparray
 mov rsi, r14
+mov rax, 0
 call display
 
 ;Get the sum from sum.asm
+push qword 0
 mov rdi, inparray
 mov rsi, r14
 mov rax, 0
 call sum
-mov r13, rax
+movsd xmm10, xmm0
 
-;Print the sum
-mov rdi, stringf
-mov rsi, outputsumb
-mov rax, 0
+;Print the sum prompt
+push qword 0
+mov rax, 1
+mov rdi, outputsumb
 call printf
+pop rax
 
 ;Conclusion messages
 mov qword rax, 0
@@ -96,7 +130,7 @@ call printf
 
 ;Restore registers
 pop rax
-mov qword rax, r13
+movsd xmm0, xmm10
 popf                                                 
 pop rbx                                                     
 pop r15                                                     

@@ -7,7 +7,7 @@ extern "C" void display(double arr[], long index);
 
 void display(double arr[], long index){
 	for (int i = 0; i<index;++i){
-		printf("%lf", arr[i]); 
+		printf("%5.8lf", arr[i]); 
 		printf("%s", " ");
 	}
 	printf("\n");

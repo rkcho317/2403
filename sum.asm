@@ -31,7 +31,7 @@ push r15
 push rbx
 pushf
 
-push qword -1
+push qword 0
 
 mov r15, rdi
 mov r14, rsi
@@ -41,11 +41,12 @@ mov r12, 0
 ;Begin loop
 init_loop:
 
+;Compare r12 (the counter) with r14 (the number of elements in the array)
 cmp r12, r14
 jge end_loop
 
-;Copy into array
-add r13, [r15 + 8 * r12]
+;Copy into array and add the elements
+addsd xmm10, [r15 + 8 * r12]
 inc r12
 
 jmp init_loop
@@ -53,8 +54,10 @@ jmp init_loop
 ;Ends the loop
 end_loop:
 
+;return the sum
 pop rax
-mov qword rax, r13
+movsd xmm0, xmm10
+
 popf
 pop rbx                                                     
 pop r15                                                     
