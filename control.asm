@@ -1,14 +1,13 @@
 ;****************************************************************************************************************************
-;Program name: "Quadratic Computation and Validation".  This program demonstrates how to turn
-;an input of a string in to three floats then use those floats to calculate a
-;quadratic equation. Once we get the roots from that equation, we determine
-;how many valid ones are there.
+;Program name: "Sum of an Array".  This program accepts 64-bit floats  
+;then stores them into an array and then adds all the elements within it.
+;It also demonstrates how ctrl-d works in conjunction with a for-loop. 
 ;Copyright (C) 2021 Rosa Cho.                                                                           *
 ;                                                                                                                           *
-;This file is part of the software program "Quadratic Computation and Validation".                                                                   *
-;Quadratic Computation and Validation is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License   *
+;This file is part of the software program "Sum of an Array".                                                                   *
+;Sum of an Array is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License   *
 ;version 3 as published by the Free Software Foundation.                                                                    *
-;Quadratic Computation and Validation is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied          *
+;Sum of an Array is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied          *
 ;warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.     *
 ;A copy of the GNU General Public License v3 is available here:  <https:;www.gnu.org/licenses/>.                            *
 ;****************************************************************************************************************************
@@ -18,18 +17,18 @@
 ;  Author email: rkcho317@csu.fullerton.edu
 ;
 ;Program information
-;  Program name: Quadratic Computation and Validation
-;  Programming languages: Three modules in C++, one in C, and one module in X86
-;  Date program began: 2021-Feb-18
-;  Date of last update: 2021-Feb-28
-;  Files in this program: second_degree.c, quad_library.cpp, isfloat.cpp, isdigit.cpp, quadratic.asm
-;  Status: In-progress
+;  Program name:Sum of an Array
+;  Programming languages: Three modules in x86, one in C, and one in C++
+;  Date program began: 2021-Mar-3
+;  Date of last update: 2021-Mar-21
+;  Files in this program: main.c, control.asm, sum.asm, fill.asm, display.cpp, run.sh
+;  Status: Finished
 ;
 ;This file
-;   File name: quadratic.asm
+;   File name: control.asm
 ;   Language: X86 with Intel syntax.
 ;   Max page width:
-;   Assemble: nasm -f elf64 -l quadratic.lis -o quadratic.o quadratic.asm
+;   Assemble: nasm -f elf64 -o control.o control.asm
 
 extern printf
 extern scanf
